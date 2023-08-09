@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33815.320
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlantNestApp", "PlantNestApp.csproj", "{04D56CA6-FD06-40FC-B6C7-BAA086FD0F95}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{04D56CA6-FD06-40FC-B6C7-BAA086FD0F95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04D56CA6-FD06-40FC-B6C7-BAA086FD0F95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04D56CA6-FD06-40FC-B6C7-BAA086FD0F95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04D56CA6-FD06-40FC-B6C7-BAA086FD0F95}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E461B38F-45C8-4FE4-88DD-9A5604EE85A3}
+	EndGlobalSection
+EndGlobal
