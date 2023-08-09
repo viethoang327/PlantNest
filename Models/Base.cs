@@ -6,9 +6,12 @@ namespace PlantNestApp.Models
     {
         [Key]
         public int Id { get; set; }
-        public DateTime? CreateDate { get; set; } = DateTime.Now;
-        public string? CreateBy { get; set; }
-        public DateTime? UpdateAt { get; set; } = DateTime.Now;
+        public DateTime? CreatedAt { get; set; } = DateTime.Now;
+        public string? CreatedBy { get; set; }
+        public DateTime? UpdatedAt { get; set; } = DateTime.Now;
+        public string? UpdatedBy { get; set; }
         public bool? isDeleted { get; set; }
+        public DateTime? DeleteAt { get; set; } = DateTime.Now;
+        public string? DeleteBy { get; set; }
     }
 }
