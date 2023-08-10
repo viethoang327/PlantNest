@@ -8,7 +8,7 @@ namespace PlantNestApp.Models
         public int? ProductID { get; set; }
         public Product? Product { get; set; }
         [ForeignKey("OderID")]
-        public int? OderID { get; set; }
+        public int? OrderID { get; set; }
         public Order? Order { get; set; }
         public decimal? Price { get; set; }
         public int? Quantity { get; set; }

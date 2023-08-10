@@ -23,11 +23,12 @@ namespace PlantNestApp
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
 			builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
-			var app = builder.Build();
-			builder.Services.AddSwaggerGen(c =>
-			{
-				c.SwaggerDoc("v1", new OpenApiInfo { Title = "My TechWiz API", Version = "v1" });
-			});
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My TechWiz API", Version = "v1" });
+            });
+            var app = builder.Build();
+			
 
 			// Configure the HTTP request pipeline.
 			if (app.Environment.IsDevelopment())
@@ -57,7 +58,13 @@ namespace PlantNestApp
 			app.UseSwaggerUI(c =>
 			{
 				c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1");
-			});
+			}); 
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                var context = services.GetRequiredService<ApplicationDbContext>();
+                DataInitialize.SeedData(context);
+            }
 
 			app.Run();
         }
