@@ -23,5 +23,7 @@ namespace PlantNestApp.Data
         public DbSet <ConFig> conFigs { get; set; }
         public DbSet <Slide> slides { get; set; }
 
+        public DbSet <CustomerUser> customerUsers { get; set; }
+
     }
 }

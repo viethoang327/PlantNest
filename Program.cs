@@ -1,9 +1,13 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using PlantNestApp.Data;
+using PlantNestApp.Models;
 using PlantNestApp.Repository;
+using System.Text;
 
 namespace PlantNestApp
 {
@@ -19,16 +23,49 @@ namespace PlantNestApp
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            builder.Services.AddIdentity<CustomerUser,IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-            builder.Services.AddControllersWithViews();
+			builder.Services.AddRazorPages();
+			builder.Services.AddControllersWithViews();
 			builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
-			var app = builder.Build();
+			builder.Services.AddScoped<IProduct, ProductRepository>();
+			builder.Services.AddScoped<ICategoryProduct, ProductCategoryRepository>();
+			builder.Services.AddScoped<ICategoryInProductRepository, CategoryInProductRepository>();
+			builder.Services.AddScoped<INew, NewRepository>();
+			builder.Services.AddScoped<INewCate, NewCategoryRepository>();
+			builder.Services.AddScoped<INewInCate, NewInCategoryRepository>();
+			builder.Services.AddScoped<IOder, OderRepository>();
+			builder.Services.AddScoped<IOderDetail, OderDetailRepopsitory>();
+			builder.Services.AddScoped<ISlide, SlideRepository>();
+			builder.Services.AddScoped<IConfig, ConfigRepository>();
+			builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+
+			builder.Services.AddAuthentication(options =>
+			{
+				options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+				options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+				options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+			}).AddJwtBearer(options =>
+			{
+				options.SaveToken = true;
+				options.RequireHttpsMetadata = false;
+				options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+				{
+					ValidateIssuer = true,
+					ValidateAudience = true,
+					ValidAudience = builder.Configuration["JWT:ValidAudience"],
+					ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
+					IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]))
+				};
+			});
+
+
+
 			builder.Services.AddSwaggerGen(c =>
 			{
 				c.SwaggerDoc("v1", new OpenApiInfo { Title = "My TechWiz API", Version = "v1" });
 			});
-
+			var app = builder.Build();
 			// Configure the HTTP request pipeline.
 			if (app.Environment.IsDevelopment())
             {

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace PlantNestApp.Models
 {
@@ -9,7 +10,8 @@ namespace PlantNestApp.Models
         public Product? Product { get; set; }
         [ForeignKey("OderID")]
         public int? OderID { get; set; }
-        public Order? Order { get; set; }
+		[JsonIgnore]
+		public Order? Order { get; set; }
         public decimal? Price { get; set; }
         public int? Quantity { get; set; }
     }
