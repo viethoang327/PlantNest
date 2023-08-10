@@ -3,19 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PlantNestApp.Data;
 
 #nullable disable
 
-namespace PlantNestApp.Data.Migrations
+namespace PlantNestApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230809092832_AddBaseModel")]
-    partial class AddBaseModel
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -88,6 +86,10 @@ namespace PlantNestApp.Data.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -139,6 +141,8 @@ namespace PlantNestApp.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -169,12 +173,10 @@ namespace PlantNestApp.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -211,12 +213,10 @@ namespace PlantNestApp.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -620,10 +620,7 @@ namespace PlantNestApp.Data.Migrations
                     b.Property<string>("DeleteBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("OderID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("OrderId")
+                    b.Property<int?>("OrderID")
                         .HasColumnType("int");
 
                     b.Property<decimal?>("Price")
@@ -646,7 +643,7 @@ namespace PlantNestApp.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OrderId");
+                    b.HasIndex("OrderID");
 
                     b.HasIndex("ProductID");
 
@@ -742,6 +739,16 @@ namespace PlantNestApp.Data.Migrations
                     b.ToTable("slides");
                 });
 
+            modelBuilder.Entity("PlantNestApp.Models.CustomerUser", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("CustomerUser");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -827,7 +834,7 @@ namespace PlantNestApp.Data.Migrations
                 {
                     b.HasOne("PlantNestApp.Models.Order", "Order")
                         .WithMany()
-                        .HasForeignKey("OrderId");
+                        .HasForeignKey("OrderID");
 
                     b.HasOne("PlantNestApp.Models.Product", "Product")
                         .WithMany()

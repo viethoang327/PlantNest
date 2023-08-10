@@ -59,9 +59,19 @@ namespace PlantNestApp
 				};
 			});
 
+			builder.Services.AddCors(options =>
+			{
+				options.AddPolicy("AllowAllOrigins",
+					builder =>
+					{
+						builder.AllowAnyOrigin();
+					});
+			});
 
+			// ...
+		
 
-			builder.Services.AddSwaggerGen(c =>
+		builder.Services.AddSwaggerGen(c =>
 			{
 				c.SwaggerDoc("v1", new OpenApiInfo { Title = "My TechWiz API", Version = "v1" });
 			});
@@ -81,8 +91,8 @@ namespace PlantNestApp
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
-            app.UseRouting();
+			app.UseCors("AllowAllOrigins");
+			app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();
