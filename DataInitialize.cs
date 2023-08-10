@@ -3,7 +3,8 @@ using PlantNestApp.Models;
 
 namespace PlantNestApp
 {
-    public class DataInitialize
+    public static class DataInitialize
+
     {
         public static void SeedData(ApplicationDbContext context)
         {

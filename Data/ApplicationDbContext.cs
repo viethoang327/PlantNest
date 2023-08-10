@@ -9,6 +9,7 @@ namespace PlantNestApp.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
+            DataInitialize.SeedData(this);
         }
         public DbSet<Category> categories { get; set; }
         public DbSet<Product> products { get; set; }

@@ -10,7 +10,7 @@ namespace PlantNestApp.Repository
 	{
 		Task<DataTablesResponseDTO<T> > BuildResponseForDataTableLibrary(Expression<Func<T, bool>> filter, string columName = "id", bool columASC = false, int start = 1, int draw = 0, int length = 10);
 		Task<ViewDTO<T>> GetAllAsync();
-		
+		Task<ViewDTO<T>> GetByIdAsync(int id);
 		Task <ViewDTO<T>> CreteAsync(T entity);
 		 Task <ViewDTO<T>> UpdateAsync( T entity);
 		Task< ViewDTO<T>> DeleteAsync(int id);
@@ -97,7 +97,20 @@ namespace PlantNestApp.Repository
 			return result;
 		}
 
-		
+		public async Task<ViewDTO<T>> GetByIdAsync(int id)
+		{
+			var result = new ViewDTO<T>();
+			var dataItem = await _dbset.FindAsync(id);
+
+			if (dataItem != null)
+			{
+				result.DataRows.Add(dataItem);
+				result.StatusCode = 200;
+				result.Message = "Tìm kiếm theo Id thành công!";
+			}
+
+			return result;
+		}
 
 		public async Task< ViewDTO<T> > UpdateAsync( T entity)
 		{

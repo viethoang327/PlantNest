@@ -64,10 +64,27 @@ namespace PlantNestApp.Controllers
 			}
 		}
 		[HttpGet]
+		
 		public async Task<IActionResult> GetAll()
 		{
 			var result = await _BaseRepository.GetAllAsync();
 			if(result != null)
+			{
+				return Ok(result);
+			}
+			else
+			{
+				return BadRequest("Error");
+			}
+		}
+
+		[HttpGet]
+		[Route("GetById/{id}")]
+		public async Task<IActionResult> GetById(int id)
+		{
+		    var result = await _BaseRepository.GetByIdAsync(id);
+
+			if (result !=null)
 			{
 				return Ok(result);
 			}
