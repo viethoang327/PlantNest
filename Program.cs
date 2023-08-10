@@ -94,7 +94,13 @@ namespace PlantNestApp
 			app.UseSwaggerUI(c =>
 			{
 				c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1");
-			});
+			}); 
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                var context = services.GetRequiredService<ApplicationDbContext>();
+                DataInitialize.SeedData(context);
+            }
 
 			app.Run();
         }
