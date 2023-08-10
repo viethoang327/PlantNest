@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PlantNestApp.Data;
 using PlantNestApp.DataTransferObject;
+using PlantNestApp.Models;
 using System.Linq.Expressions;
 
 namespace PlantNestApp.Repository
 {
-	public interface IBaseRepository<T> where T : class
+	public interface IBaseRepository<T> where T : Base
 	{
 		Task<DataTablesResponseDTO<T> > BuildResponseForDataTableLibrary(Expression<Func<T, bool>> filter, string columName = "id", bool columASC = false, int start = 1, int draw = 0, int length = 10);
 		Task<ViewDTO<T>> GetAllAsync();
@@ -14,7 +15,7 @@ namespace PlantNestApp.Repository
 		 Task <ViewDTO<T>> UpdateAsync( T entity);
 		Task< ViewDTO<T>> DeleteAsync(int id);
 	}
-	public class BaseRepository<T> : IBaseRepository<T> where T : class
+	public class BaseRepository<T> : IBaseRepository<T> where T : Base
 	{
 		protected ApplicationDbContext _db;
 		protected DbSet<T> _dbset;

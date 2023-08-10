@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PlantNestApp.Data;
 
@@ -11,9 +12,10 @@ using PlantNestApp.Data;
 namespace PlantNestApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230809180852_UpdateCustommerUser")]
+    partial class UpdateCustommerUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -620,7 +622,10 @@ namespace PlantNestApp.Data.Migrations
                     b.Property<string>("DeleteBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("OrderID")
+                    b.Property<int?>("OderID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("OrderId")
                         .HasColumnType("int");
 
                     b.Property<decimal?>("Price")
@@ -643,7 +648,7 @@ namespace PlantNestApp.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OrderID");
+                    b.HasIndex("OrderId");
 
                     b.HasIndex("ProductID");
 
@@ -834,7 +839,7 @@ namespace PlantNestApp.Data.Migrations
                 {
                     b.HasOne("PlantNestApp.Models.Order", "Order")
                         .WithMany()
-                        .HasForeignKey("OrderID");
+                        .HasForeignKey("OrderId");
 
                     b.HasOne("PlantNestApp.Models.Product", "Product")
                         .WithMany()

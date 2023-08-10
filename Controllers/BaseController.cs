@@ -3,13 +3,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using PlantNestApp.Data;
 using PlantNestApp.DataTransferObject;
+using PlantNestApp.Models;
 using PlantNestApp.Repository;
 
 namespace PlantNestApp.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
-	public class BaseController<T> : ControllerBase where T : class
+	public class BaseController<T> : ControllerBase where T : Base
 	{
 		private IBaseRepository<T> _BaseRepository;
 		private ApplicationDbContext _context;
@@ -19,7 +20,7 @@ namespace PlantNestApp.Controllers
 			_BaseRepository = BaseRepository;
 		}
 
-		[HttpGet]
+		[HttpPost]
 		public async Task< IActionResult > Create(T entity)
 		{
 			var result = await _BaseRepository.CreteAsync(entity);
