@@ -618,10 +618,7 @@ namespace PlantNestApp.Data.Migrations
                     b.Property<string>("DeleteBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("OderID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("OrderId")
+                    b.Property<int?>("OrderID")
                         .HasColumnType("int");
 
                     b.Property<decimal?>("Price")
@@ -644,7 +641,7 @@ namespace PlantNestApp.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OrderId");
+                    b.HasIndex("OrderID");
 
                     b.HasIndex("ProductID");
 
@@ -825,7 +822,7 @@ namespace PlantNestApp.Data.Migrations
                 {
                     b.HasOne("PlantNestApp.Models.Order", "Order")
                         .WithMany()
-                        .HasForeignKey("OrderId");
+                        .HasForeignKey("OrderID");
 
                     b.HasOne("PlantNestApp.Models.Product", "Product")
                         .WithMany()
