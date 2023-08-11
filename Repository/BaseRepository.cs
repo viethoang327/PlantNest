@@ -30,7 +30,7 @@ namespace PlantNestApp.Repository
 		public async Task<DataTablesResponseDTO<T>> BuildResponseForDataTableLibrary(Expression<Func<T, bool>> filter, string columName = "id", bool columASC = false, int start = 1, int draw = 0, int length = 10)
 		{
 			var result = new DataTablesResponseDTO<T>();
-			var dataRows =  _dbset.AsQueryable();
+			var dataRows =  _dbset.Where(r => r.isDeleted != true).AsQueryable();
 			if (filter != null)
 			{
 				dataRows = dataRows.Where(filter);
@@ -80,7 +80,8 @@ namespace PlantNestApp.Repository
 				var deleted = await _dbset.FindAsync(id);
 				if (deleted != null)
 				{
-					 _dbset.Remove(deleted);
+					deleted.isDeleted = true;
+					 _dbset.Update(deleted);
 					await _db.SaveChangesAsync();
 					result.Message = "Xóa dữ liệu thành công!";
 					result.StatusCode = 200;
@@ -94,7 +95,7 @@ namespace PlantNestApp.Repository
 		public async Task< ViewDTO<T> > GetAllAsync()
 		{
 			var result = new ViewDTO<T>();
-			result.DataRows = await _dbset.AsQueryable().ToListAsync();
+			result.DataRows = await _dbset.Where(r => r.isDeleted != true).AsQueryable().ToListAsync();
 			return result;
 		}
 
