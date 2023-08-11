@@ -65,7 +65,7 @@ namespace PlantNestApp.Controllers
 		}
 		[HttpGet]
 		
-		public async Task<IActionResult> GetAll()
+		public  async Task<IActionResult> GetAll()
 		{
 			var result = await _BaseRepository.GetAllAsync();
 			if(result != null)
@@ -94,6 +94,28 @@ namespace PlantNestApp.Controllers
 			}
 		}
 
+		//[HttpPost]
+		//[Route("uplaoadfile")]
+		//public async Task<IActionResult> Uploadfile([FromForm] Imageee p)
+		//{
+		//	var product = new Product();
+		//	if (p.Image.Length > 0)
+		//	{
+		//		var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "image", p.Image.FileName);
+		//		using (var stream = System.IO.File.Create(path))
+		//		{
+		//			await p.Image.CopyToAsync(stream);
+		//		}
+		//		product.Image = "/image/"  + p.Image.FileName;
+		//	}
+		//	else
+		//	{
+		//		product.Image = "";
+		//	}
+		//	return Ok(product);
+
+
+		//}
 
 
 
@@ -101,7 +123,5 @@ namespace PlantNestApp.Controllers
 
 
 
-
-
-		}
+	}
 }
