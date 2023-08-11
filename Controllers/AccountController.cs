@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PlantNestApp.Models;
 using PlantNestApp.Repository;
 
@@ -11,9 +13,11 @@ namespace PlantNestApp.Controllers
 	public class AccountController : ControllerBase
 	{
 		private readonly IAccountRepository _accountRepository;
-		public AccountController(IAccountRepository accountRepository)
+		private readonly UserManager<CustomerUser> _userManager;
+		public AccountController(IAccountRepository accountRepository, UserManager<CustomerUser> userManager)
 		{
 			_accountRepository = accountRepository;
+			_userManager = userManager;
 		}
 		[HttpPost]
 		[Route("SignUp")]
@@ -51,5 +55,6 @@ namespace PlantNestApp.Controllers
 			await HttpContext.SignOutAsync();
 			return Ok("Đã logout thành công.");
 		}
+		
 	}
 }
