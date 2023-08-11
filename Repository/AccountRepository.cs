@@ -107,11 +107,11 @@ namespace PlantNestApp.Repository
 			{
 				// Kiểm tra xem vai trò đã tồn tại chưa
 
-				var checker = await roleManager.RoleExistsAsync("Admin");
+				var checker = await roleManager.RoleExistsAsync("User");
 				if (!checker)
 				{
 					// Tạo vai trò mới
-					var role = new IdentityRole("Admin");
+					var role = new IdentityRole("User");
 					await roleManager.CreateAsync(role);
 				}
 				//Add quyen

@@ -102,6 +102,7 @@ namespace PlantNestApp.Repository
 		public async Task<ViewDTO<T>> GetByIdAsync(int id)
 		{
 			var result = new ViewDTO<T>();
+			result.DataRows = await _dbset.Where(r => r.isDeleted != true).AsQueryable().ToListAsync();
 			var dataItem = await _dbset.FindAsync(id);
 
 			if (dataItem != null)

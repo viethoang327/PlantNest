@@ -65,5 +65,13 @@ namespace PlantNestApp.Controllers
 				);
 			return Ok(result);
 		}
+
+		[HttpGet]
+		[Route("LayCateNew")]
+		public async Task<IActionResult> LayCAteNew(int newId)
+		{
+			var result = await _NewInCateRepository.GetCategoryNewByNewId(newId);
+			return Ok(result);
+		}
 	}
 }

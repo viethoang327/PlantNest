@@ -53,9 +53,6 @@ namespace PlantNestApp.Controllers
 		[HttpDelete]
 		public async Task<IActionResult> Delete(int id)
 		{
-
-			
-
 			var result = await _BaseRepository.DeleteAsync(id);
 			if (result != null)
 			{

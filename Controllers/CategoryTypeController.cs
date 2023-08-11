@@ -9,17 +9,17 @@ namespace PlantNestApp.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
-	public class ProductInCategoryController : BaseController<CategoryInProduct>
+	public class CategoryTypeController : BaseController<CategoryType>
 	{
-		private readonly ICategoryInProductRepository _ProductInCategoryRepository;
-		private readonly ApplicationDbContext _db;
-		public ProductInCategoryController(ApplicationDbContext db,ICategoryInProductRepository ProductInCategoryRepository,ApplicationDbContext context, IBaseRepository<CategoryInProduct> BaseRepository) : base(context, BaseRepository)
+		private readonly ICatetype _CategoryTypeRepository;
+
+		public CategoryTypeController(ICatetype CategoryTypeRepository, ApplicationDbContext context, IBaseRepository<CategoryType> BaseRepository) : base(context, BaseRepository)
 		{
-			_ProductInCategoryRepository= ProductInCategoryRepository;
-			_db= db;
+			_CategoryTypeRepository = CategoryTypeRepository;
 		}
+
 		[HttpPost]
-		[Route("paging")]
+		[Route("typepading")]
 		public async Task<IActionResult> DataTableAjaxRespone(DataTableAjaxPostModel postModel)
 		{
 
@@ -50,10 +50,10 @@ namespace PlantNestApp.Controllers
 			var length = postModel.length;
 
 
-			var result = _ProductInCategoryRepository.BuildResponseForDataTableLibrary(
+			var result = _CategoryTypeRepository.BuildResponseForDataTableLibrary(
 				r => (string.IsNullOrEmpty(search)) || (
 					(!string.IsNullOrEmpty(search)) && (
-						r.Product.Name.ToLower().Contains(search.ToLower())
+						r.Name.ToLower().Contains(search.ToLower())
 					)
 				),
 				columName,
@@ -65,14 +65,6 @@ namespace PlantNestApp.Controllers
 
 				);
 			return Ok(result);
-		}
-
-		[HttpGet]
-		[Route("LayCateNAme")]
-		public async Task<IActionResult> LayCAte(int productId)
-		{
-			var customers = await _ProductInCategoryRepository.GetCategoryByProductId(productId);
-			return Ok(customers);
 		}
 	}
 }
