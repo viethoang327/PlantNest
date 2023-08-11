@@ -12,7 +12,7 @@ namespace PlantNestApp.Controllers
 	public class ProductController : BaseController<Product>
 	{
 		private readonly IProduct _ProductRepository;
-		public ProductController(IProduct ProductRepository,ApplicationDbContext context, IBaseRepository<Product> BaseRepository) : base(context, BaseRepository)
+		public ProductController(IProduct ProductRepository, ApplicationDbContext context, IBaseRepository<Product> BaseRepository) : base(context, BaseRepository)
 		{
 			_ProductRepository = ProductRepository;
 		}
@@ -64,5 +64,13 @@ namespace PlantNestApp.Controllers
 				);
 			return Ok(result);
 		}
+
+		[HttpGet]
+		[Route("GetAllProductMinify")]
+		public async Task<IActionResult> GetAllProductMinify()
+		{
+			var result = await _ProductRepository.GetProductMinifyAsync();
+			return Ok(result);
 		}
+	}
 }
