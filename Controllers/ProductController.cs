@@ -86,5 +86,12 @@ namespace PlantNestApp.Controllers
 			var result = await _ProductRepository.GetproductBycategoriesAsync(categoryId);
 			return Ok(result);
 		}
+		[HttpGet]
+		[Route("Getquantityproductbycategories")]
+		public async Task<IActionResult> Getquantityproductbycategories()
+		{
+			var result = await _ProductRepository.GetCategoriesWithCountProduct();
+			return Ok(result);
+		}
 	}
 }

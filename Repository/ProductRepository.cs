@@ -11,6 +11,7 @@ namespace PlantNestApp.Repository
 		Task<List<ProductMinify>> GetProductMinifyAsync();
 		Task<ProductMinify> GetProductByIdFullDetailAsync(int id);
 		Task<List<Product>> GetproductBycategoriesAsync(int id);
+		Task<List<CountProductInCategory>> GetCategoriesWithCountProduct();
 
 	}
 	public class ProductRepository : BaseRepository<Product>, IProduct
@@ -50,9 +51,9 @@ namespace PlantNestApp.Repository
 							 categoriesName = grouped.Select(r => r.Category.Name).ToList(),
 							 categoriesId = grouped.Select(r => r.Category.Id).ToList(),
 							 categoriesType = grouped.Key.Type,
-							
+
 						 };
-			
+
 			return await result.ToListAsync();
 		}
 
@@ -105,5 +106,18 @@ namespace PlantNestApp.Repository
 			return await result.ToListAsync();
 		}
 
+		public async Task<List<CountProductInCategory>> GetCategoriesWithCountProduct()
+		{
+			var query = from cp in _db.categoryInProducts
+						join c in _db.categories on cp.CategoryID equals c.Id
+						group cp by new { c.Id, c.Name/*, c.Image*/ } into grouped
+						select new CountProductInCategory
+						{
+							CategoryId = grouped.Key.Id,
+							CategoryName = grouped.Key.Name,
+							CountProduct = grouped.Count()
+						};
+			return await query.ToListAsync();
+		}
 	}
 }
