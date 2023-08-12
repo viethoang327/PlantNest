@@ -19,13 +19,13 @@ namespace PlantNestApp.Controllers
 			ProcessStartInfo processInfo = new ProcessStartInfo
 			{
 				FileName = "powershell.exe", // Sử dụng PowerShell Core (pwsh) hoặc "powershell.exe" nếu bạn sử dụng PowerShell Windows
-				Arguments = deployScriptPath,
+				//Arguments = deployScriptPath,
 				WorkingDirectory = wwwRootPath,
 				RedirectStandardOutput = true,
 				RedirectStandardError = true,
-				UseShellExecute = false,
+				//UseShellExecute = false,
 				CreateNoWindow = true,
-				Arguments = $"-NoProfile -ExecutionPolicy Unrestricted -File \"{scriptPath}\"",
+				Arguments = $"-NoProfile -ExecutionPolicy Unrestricted -File \"{deployScriptPath}\"",
             	Verb = "runas",  // Chạy với quyền admin
             	UseShellExecute = true,  // Cho phép sử dụng shell execute
 			};
