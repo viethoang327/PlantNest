@@ -8,8 +8,8 @@ using PlantNestApp.Repository;
 
 namespace PlantNestApp.Controllers
 {
-	[Route("api/[controller]")]
-	[ApiController]
+    [Route("api/[controller]/[Action]")]
+    [ApiController]
 	public class BaseController<T> : ControllerBase where T : Base
 	{
 		private IBaseRepository<T> _BaseRepository;
