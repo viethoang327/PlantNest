@@ -69,7 +69,7 @@ namespace PlantNestApp.Controllers
 		[Route("GetCategoryByType")]
 		public async Task<IActionResult> GetCategoryByType(string type)
 		{
-			var result = _ProductCategoryRepository.GetCategoriesByTypeAsync(type);
+			var result = await _ProductCategoryRepository.GetCategoriesByTypeAsync(type);
 			return Ok(result);
 		}
 	}

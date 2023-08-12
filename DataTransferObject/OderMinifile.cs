@@ -3,9 +3,8 @@
 	public class OderMinifile
 	{
 
-		
+
 			public string? userID { get; set; }
-			
 			public string? code { get; set; }
 			public string? address { get; set; }
 			public string? phone { get; set; }

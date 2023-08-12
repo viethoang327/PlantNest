@@ -16,7 +16,7 @@ namespace PlantNestApp.Repository
 
 		public async Task<List<Category>> GetCategoriesByTypeAsync(string type)
 		{
-			var result = _dbset.Where(r => r.isDeleted != true && r.Type.Equals(type));
+			var result = _db.categories.Where(r => r.isDeleted != true && r.Type.Equals(type));
 			return await result.ToListAsync();
 		}
 	}
