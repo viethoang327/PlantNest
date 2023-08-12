@@ -110,11 +110,12 @@ namespace PlantNestApp.Repository
 		{
 			var query = from cp in _db.categoryInProducts
 						join c in _db.categories on cp.CategoryID equals c.Id
-						group cp by new { c.Id, c.Name/*, c.Image*/ } into grouped
+						group cp by new { c.Id, c.Name, c.Image } into grouped
 						select new CountProductInCategory
 						{
 							CategoryId = grouped.Key.Id,
 							CategoryName = grouped.Key.Name,
+							CategoryImage = grouped.Key.Image,
 							CountProduct = grouped.Count()
 						};
 			return await query.ToListAsync();
