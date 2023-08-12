@@ -7,17 +7,18 @@ using PlantNestApp.Repository;
 
 namespace PlantNestApp.Controllers
 {
-	[Route("api/[controller]")]
-	[ApiController]
-	public class NewCategoryController : BaseController<NewsCategory>
+    [Route("api/[controller]/[Action]")]
+    [ApiController]
+	public class NewInCategoryController : BaseController<NewsInCategory>
 	{
-		private readonly INewCate _NewsCategory;
-		public NewCategoryController(INewCate NewsCategory,ApplicationDbContext context, IBaseRepository<NewsCategory> BaseRepository) : base(context, BaseRepository)
+		private readonly INewInCate _NewInCateRepository;
+		public NewInCategoryController(INewInCate NewInCateRepository, ApplicationDbContext context, IBaseRepository<NewsInCategory> BaseRepository) : base(context, BaseRepository)
 		{
-			_NewsCategory = NewsCategory;
+			_NewInCateRepository = NewInCateRepository;
+
 		}
 		[HttpPost]
-		[Route("searchpading")]
+		[Route("DataTableAjaxRespone")]
 		public async Task<IActionResult> DataTableAjaxRespone(DataTableAjaxPostModel postModel)
 		{
 
@@ -48,10 +49,10 @@ namespace PlantNestApp.Controllers
 			var length = postModel.length;
 
 
-			var result = _NewsCategory.BuildResponseForDataTableLibrary(
+			var result = _NewInCateRepository.BuildResponseForDataTableLibrary(
 				r => (string.IsNullOrEmpty(search)) || (
 					(!string.IsNullOrEmpty(search)) && (
-						r.Name.ToLower().Contains(search.ToLower())
+						r.News.Name.ToLower().Contains(search.ToLower())
 					)
 				),
 				columName,
@@ -62,6 +63,14 @@ namespace PlantNestApp.Controllers
 
 
 				);
+			return Ok(result);
+		}
+
+		[HttpGet]
+		[Route("LayCateNew")]
+		public async Task<IActionResult> LayCAteNew(int newId)
+		{
+			var result = await _NewInCateRepository.GetCategoryNewByNewId(newId);
 			return Ok(result);
 		}
 	}

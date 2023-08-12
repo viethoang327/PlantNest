@@ -9,8 +9,8 @@ using PlantNestApp.DataTransferObject.UserDTO;
 
 namespace PlantNestApp.Controllers
 {
-	[Route("api/[controller]")]
-	[ApiController]
+    [Route("api/[controller]/[Action]")]
+    [ApiController]
 	public class OrderController : BaseController<Models.Order>
 	{
 		private readonly IOder _OderRepository;

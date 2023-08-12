@@ -7,17 +7,17 @@ using PlantNestApp.Repository;
 
 namespace PlantNestApp.Controllers
 {
-	[Route("api/[controller]")]
-	[ApiController]
-	public class NewController : BaseController<News>
+    [Route("api/[controller]/[Action]")]
+    [ApiController]
+	public class NewsCategoryController : BaseController<NewsCategory>
 	{
-		private readonly INew _NewRepository;
-		public NewController(INew NewRepository,ApplicationDbContext context, IBaseRepository<News> BaseRepository) : base(context, BaseRepository)
+		private readonly INewCate _NewsCategory;
+		public NewsCategoryController(INewCate NewsCategory,ApplicationDbContext context, IBaseRepository<NewsCategory> BaseRepository) : base(context, BaseRepository)
 		{
-			_NewRepository = NewRepository;
+			_NewsCategory = NewsCategory;
 		}
 		[HttpPost]
-		[Route("search")]
+		[Route("searchpading")]
 		public async Task<IActionResult> DataTableAjaxRespone(DataTableAjaxPostModel postModel)
 		{
 
@@ -48,7 +48,7 @@ namespace PlantNestApp.Controllers
 			var length = postModel.length;
 
 
-			var result = _NewRepository.BuildResponseForDataTableLibrary(
+			var result = _NewsCategory.BuildResponseForDataTableLibrary(
 				r => (string.IsNullOrEmpty(search)) || (
 					(!string.IsNullOrEmpty(search)) && (
 						r.Name.ToLower().Contains(search.ToLower())
@@ -62,13 +62,6 @@ namespace PlantNestApp.Controllers
 
 
 				);
-			return Ok(result);
-		}
-		[HttpGet]
-		[Route("GetAllNewsMinify")]
-		public async Task<IActionResult> GetAllNewsMinify()
-		{
-			var result = await _NewRepository.GetNewsMinifyAsync();
 			return Ok(result);
 		}
 	}

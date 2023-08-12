@@ -7,12 +7,12 @@ using PlantNestApp.Repository;
 
 namespace PlantNestApp.Controllers
 {
-	[Route("api/[controller]")]
+	[Route("api/[controller]/[Action]")]
 	[ApiController]
-	public class ProductController : BaseController<Product>
+	public class ProductController : BaseController<Models.Product>
 	{
 		private readonly IProduct _ProductRepository;
-		public ProductController(IProduct ProductRepository, ApplicationDbContext context, IBaseRepository<Product> BaseRepository) : base(context, BaseRepository)
+		public ProductController(IProduct ProductRepository, ApplicationDbContext context, IBaseRepository<Models.Product> BaseRepository) : base(context, BaseRepository)
 		{
 			_ProductRepository = ProductRepository;
 		}

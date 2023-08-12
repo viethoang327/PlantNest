@@ -7,17 +7,17 @@ using PlantNestApp.Repository;
 
 namespace PlantNestApp.Controllers
 {
-	[Route("api/[controller]")]
-	[ApiController]
-	public class ProductCategoryController : BaseController<Category>
+    [Route("api/[controller]/[Action]")]
+    [ApiController]
+	public class NewsController : BaseController<News>
 	{
-		private readonly ICategoryProduct _ProductCategoryRepository;
-		public ProductCategoryController(ICategoryProduct ProductCategoryRepository,ApplicationDbContext context, IBaseRepository<Category> BaseRepository) : base(context, BaseRepository)
+		private readonly INew _NewRepository;
+		public NewsController(INew NewRepository,ApplicationDbContext context, IBaseRepository<News> BaseRepository) : base(context, BaseRepository)
 		{
-			_ProductCategoryRepository = ProductCategoryRepository;
+			_NewRepository = NewRepository;
 		}
 		[HttpPost]
-		[Route("Filter")]
+		[Route("search")]
 		public async Task<IActionResult> DataTableAjaxRespone(DataTableAjaxPostModel postModel)
 		{
 
@@ -48,7 +48,7 @@ namespace PlantNestApp.Controllers
 			var length = postModel.length;
 
 
-			var result = _ProductCategoryRepository.BuildResponseForDataTableLibrary(
+			var result = _NewRepository.BuildResponseForDataTableLibrary(
 				r => (string.IsNullOrEmpty(search)) || (
 					(!string.IsNullOrEmpty(search)) && (
 						r.Name.ToLower().Contains(search.ToLower())
@@ -64,12 +64,11 @@ namespace PlantNestApp.Controllers
 				);
 			return Ok(result);
 		}
-
 		[HttpGet]
-		[Route("GetCategoryByType")]
-		public async Task<IActionResult> GetCategoryByType(string type)
+		[Route("GetAllNewsMinify")]
+		public async Task<IActionResult> GetAllNewsMinify()
 		{
-			var result = await _ProductCategoryRepository.GetCategoriesByTypeAsync(type);
+			var result = await _NewRepository.GetNewsMinifyAsync();
 			return Ok(result);
 		}
 	}
