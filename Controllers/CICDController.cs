@@ -24,7 +24,10 @@ namespace PlantNestApp.Controllers
 				RedirectStandardOutput = true,
 				RedirectStandardError = true,
 				UseShellExecute = false,
-				CreateNoWindow = true
+				CreateNoWindow = true,
+				Arguments = $"-NoProfile -ExecutionPolicy Unrestricted -File \"{scriptPath}\"",
+            	Verb = "runas",  // Chạy với quyền admin
+            	UseShellExecute = true,  // Cho phép sử dụng shell execute
 			};
 
 			using (Process process = new Process())
