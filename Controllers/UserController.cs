@@ -13,18 +13,35 @@ namespace PlantNestApp.Controllers
 	{
 		
 		private readonly UserManager<CustomerUser> _userManager;
-		public UserController( UserManager<CustomerUser> userManager)
+		private readonly RoleManager<IdentityRole> _roleManager;
+		public UserController( UserManager<CustomerUser> userManager, RoleManager<IdentityRole> roleManager)
 		{
 			
 			_userManager = userManager;
+			_roleManager = roleManager;
 		}
 		[HttpGet]
 		[Route("GetAllUser")]
 		public async Task<IActionResult> GetAllUser()
 		{
-			var result = await _userManager.Users.ToListAsync();
+			var users = await _userManager.Users.ToListAsync();
+			var usersWithRoles = new List<object>();
 
-			return Ok(result);
+			foreach (var user in users)
+			{
+				var roles = await _userManager.GetRolesAsync(user);
+
+				var userWithRoles = new
+				{
+					user,
+					Roles = roles.ToList()
+				};
+
+				usersWithRoles.Add(userWithRoles);
+			}
+
+
+			return Ok(usersWithRoles);
 		}
 		[HttpDelete]
 		[Route("Delete")]

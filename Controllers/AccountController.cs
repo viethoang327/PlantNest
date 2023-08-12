@@ -63,7 +63,7 @@ namespace PlantNestApp.Controllers
 			return Ok("xoa quyen thanh cong");
 		}
 		[HttpPost]
-		[Route("AddQuyen ")]
+		[Route("AddThemQuyen")]
 
 		public async Task<IActionResult> AddRoles(SingUp singUp)
 		{

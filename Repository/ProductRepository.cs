@@ -9,7 +9,9 @@ namespace PlantNestApp.Repository
 	public interface IProduct : IBaseRepository<Product>
 	{
 		Task<List<ProductMinify>> GetProductMinifyAsync();
-		Task<ProductMinify> GetProductByIdFullDetailAsync(int id); 
+		Task<ProductMinify> GetProductByIdFullDetailAsync(int id);
+		Task<List<Product>> GetproductBycategoriesAsync(int id);
+
 	}
 	public class ProductRepository : BaseRepository<Product>, IProduct
 	{
@@ -90,7 +92,18 @@ namespace PlantNestApp.Repository
 			var kq = await result.Where(r => r.id == id).FirstOrDefaultAsync();
 			return kq;
 		}
+		public async Task<List<Product>> GetproductBycategoriesAsync(int id)
+		{
+			var result = from p in _db.products
+						 join cp in _db.categoryInProducts on p.Id equals cp.ProductID
+						 join c in _db.categories on cp.CategoryID equals c.Id
+						 where c.Id == id
+						 select p;
 
-		
+			//var kieuInclude = _db.categoryInProducts.Include(r => r.Category).Include(r => r.Product).Where(r => r.CategoryID == id).Select(r => r.Product);
+
+			return await result.ToListAsync();
+		}
+
 	}
 }

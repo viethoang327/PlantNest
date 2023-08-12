@@ -19,5 +19,7 @@ namespace PlantNestApp.Repository
 			var result = _db.categories.Where(r => r.isDeleted != true && r.Type.Equals(type));
 			return await result.ToListAsync();
 		}
+
+		
 	}
 }
