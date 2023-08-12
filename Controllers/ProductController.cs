@@ -72,5 +72,13 @@ namespace PlantNestApp.Controllers
 			var result = await _ProductRepository.GetProductMinifyAsync();
 			return Ok(result);
 		}
+		[HttpGet]
+		[Route("GetProductByIdFullDetailAsync")]
+		public async Task<IActionResult> GetProductByIdDetailAsync(int id)
+		{
+			var result = await _ProductRepository.GetProductByIdFullDetailAsync(id);
+			return Ok(result);
+		}
+
 	}
 }
