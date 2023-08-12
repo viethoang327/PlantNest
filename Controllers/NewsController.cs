@@ -78,5 +78,20 @@ namespace PlantNestApp.Controllers
 			var result = await _NewRepository.GetNewsByIdFullDetailAsync(id);
 			return Ok(result);
 		}
+		[HttpGet]
+		[Route("GetNewsByCategoriesNewsFullDetailAsync")]
+		public async Task<IActionResult> GetNewsByCategoriesNewsFullDetailAsync(int categoriNewsid)
+		{
+			var result = await _NewRepository.GetNewsByCategoriesNewsFullDetailAsync(categoriNewsid);
+			return Ok(result);
+		}
+		[HttpGet]
+		[Route("Getquantitynewsbycategoriesnews")]
+		public async Task<IActionResult> Getquantitynewsbycategoriesnews()
+		{
+			var result = await _NewRepository.GetCategoriesWithCountNews();
+			return Ok(result);
+		}
+
 	}
 }

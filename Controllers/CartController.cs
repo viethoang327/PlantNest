@@ -17,7 +17,7 @@ namespace PlantNestApp.Controllers
 		}
 
 		[HttpGet]
-		[Route("GetAllCart")]
+		[Route("GetCartByuserId")]
 		public async Task<IActionResult> GetAllCart(string userId)
 		{
 			var result = await _CartRepository.GetCartMinifyAsync(userId);
