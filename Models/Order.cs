@@ -4,9 +4,10 @@ namespace PlantNestApp.Models
 {
     public class Order : Base
     {
-        [ForeignKey("UserID")]
+        
 		public string? UserID { get; set; }
-        public CustomerUser? customerUser { get; set; }
+		[ForeignKey("UserID")]
+		public CustomerUser? customerUser { get; set; }
 		public string? Code { get; set; }
         public string? Address { get; set; }
         public string? Phone { get; set;}
