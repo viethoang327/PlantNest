@@ -30,6 +30,8 @@ namespace PlantNestApp.Repository
 			this.roleManager = _roleManager;
 		}
 
+		
+
 		public async Task<IdentityResult> DeleteRole()
 		{
 			var User = new CustomerUser();
@@ -116,7 +118,7 @@ namespace PlantNestApp.Repository
 				}
 				//Add quyen
 				await userManager.AddToRoleAsync(User, "User");
-				await userManager.AddToRoleAsync(User, "Admin");
+			//	await userManager.AddToRoleAsync(User, "Admin");
 			}
 
 			return result;

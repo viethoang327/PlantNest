@@ -55,6 +55,22 @@ namespace PlantNestApp.Controllers
 			await HttpContext.SignOutAsync();
 			return Ok("Đã logout thành công.");
 		}
+		[HttpDelete]
+		[Route("DeleteRole")]
+		public async Task<IActionResult> Delete()
+		{
+			var result = await _accountRepository.DeleteRole();
+			return Ok("xoa quyen thanh cong");
+		}
+		[HttpPost]
+		[Route("AddQuyen ")]
+
+		public async Task<IActionResult> AddRoles(SingUp singUp)
+		{
+			var result = await _accountRepository.SingUpAsyncss(singUp);
+			return Ok("Add thanh cong");
+
+		}
 		
 	}
 }

@@ -27,6 +27,8 @@ namespace PlantNestApp.Repository
 							 q.Product.Image,
 							 q.Product.Price,
 							 q.Product.Quantity,
+							 q.Category.Type,
+
 						 } into grouped
 						 select new ProductMinify
 						 {
@@ -39,7 +41,8 @@ namespace PlantNestApp.Repository
 							 priceAfterDiscount = grouped.Key.Price * 90 / 100,
 							 discountPercentage = 10,
 							 rating = 5,
-							 categoriesName = grouped.Select(r => r.Category.Name).ToList()
+							 categoriesName = grouped.Select(r => r.Category.Name).ToList(),
+							 categoriesType = grouped.Key.Type,
 						 };
 			return await result.ToListAsync();
 		}
