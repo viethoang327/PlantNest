@@ -67,6 +67,12 @@ namespace PlantNestApp.Controllers
 			return Ok(result);
 		}
 
-		
+		[HttpGet]
+		[Route("GetOderMinifyAsync")]
+		public async Task<IActionResult> GetOderMinifyAsync()
+		{
+			var result = await _OderRepository.GetOderMinifyAsync();
+			return Ok(result);
+		}
 	}
 }

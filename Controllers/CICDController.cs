@@ -5,7 +5,7 @@ namespace PlantNestApp.Controllers
 {
 	public class CICDController : Controller
 	{
-		[HttpGet]
+		[HttpPost]
 		public async Task<IActionResult> DoRelease()
 		{
 			string wwwRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
