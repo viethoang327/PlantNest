@@ -66,5 +66,13 @@ namespace PlantNestApp.Controllers
 				);
 			return Ok(result);
 		}
+		[HttpGet]
+		[Route("GetAllType")]
+        public async Task<IActionResult> GetAllType()
+		{
+			var result = await _CategoryTypeRepository.GetCategoriesByType();
+
+			return Ok(result);
+		}
 	}
 }

@@ -4,13 +4,16 @@
 	{
 
 
-			public string? userID { get; set; }
+			
 			public string? code { get; set; }
 			public string? address { get; set; }
 			public string? phone { get; set; }
-			public decimal? totalMoney { get; set; }
-			public string? status { get; set; }
-			public int? id { get; set; }
+			public List<int> productid { get; set; }
+	     	public List<string> productname { get; set; }
+		    public string? price { get; set; }	
+
+		    public string? quantity { get; set; }
+
 		    public DateTime? createdAt { get; set; }
 			public string? createdBy { get; set; }
 			public DateTime? updatedAt { get; set; }

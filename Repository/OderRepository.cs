@@ -7,7 +7,7 @@ namespace PlantNestApp.Repository
 {
 	public interface IOder : IBaseRepository<Order>
 	{
-		Task<List<OderMinifile>> GetOderMinifyAsync();
+		Task<List<OrderDetail>> GetOderMinifyAsync(int orderId);
 	}
 	public class OderRepository : BaseRepository<Order>, IOder
 	{
@@ -15,9 +15,12 @@ namespace PlantNestApp.Repository
 		{
 		}
 
-		public Task<List<OderMinifile>> GetOderMinifyAsync()
+		public async Task<List<OrderDetail>> GetOderMinifyAsync(int orderId)
 		{
-			throw new NotImplementedException();
+
+		//	var query = _db.ordersDetail.Where(r => r.isDeleted != true);
+			var query = _db.ordersDetail.Include(r => r.Order).Include(r => r.Product).Where(r => r.Product.isDeleted != true && r.OrderID == orderId);
+			return await query.ToListAsync();
 		}
 		//public async Task<List<OderMinifile>> GetOderMinifyAsync()
 		//{
