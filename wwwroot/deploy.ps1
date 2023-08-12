@@ -8,8 +8,8 @@ Set-Location $sourceCodePath
 # Pull mã nguồn mới từ nhánh main
 git pull origin main
 
-# Tắt website trên IIS
-Stop-WebSite -Name $websiteName
+# Tắt IIS hoàn toàn
+iisreset /stop
 if ($?) {
     Write-Host "Tắt IIS thành công." -ForegroundColor Green
 } else {
@@ -26,8 +26,8 @@ if ($?) {
     exit
 }
 
-# Bật website trên IIS
-Start-WebSite -Name $websiteName
+# Bật IIS hoàn toàn
+iisreset /start
 if ($?) {
     Write-Host "Bật IIS thành công." -ForegroundColor Green
 } else {
@@ -36,3 +36,4 @@ if ($?) {
 }
 
 # Đợi 3 giây trước khi tắt script
+Start-Sleep -Seconds 3
