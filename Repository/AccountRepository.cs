@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
+using PlantNestApp.DataTransferObject.UserDTO;
 using PlantNestApp.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -69,12 +70,12 @@ namespace PlantNestApp.Repository
 			
 		
 
-		public  async Task<string> SingInAsync(SingIn model)
+		public async Task<LoginToken> SingInAsync(SingIn model)
 		{
 			var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
 			if (!result.Succeeded )
 			{
-				return string.Empty;
+				return null;
 			}
 			var authClaims = new List<Claim>
 			{
@@ -90,7 +91,12 @@ namespace PlantNestApp.Repository
 			  claims: authClaims,
 			  signingCredentials: new SigningCredentials(authenKey, SecurityAlgorithms.HmacSha512Signature)
 		  );
-			return new JwtSecurityTokenHandler().WriteToken(token);
+			return new LoginToken()
+			{
+				accessToken = new JwtSecurityTokenHandler().WriteToken(token),
+				secretToken = Guid.NewGuid().ToString()
+
+			};
 		}
 
 		
@@ -165,4 +171,6 @@ namespace PlantNestApp.Repository
 			return result;
 		}
 	}
+
+	
 }

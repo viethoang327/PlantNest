@@ -39,7 +39,7 @@ namespace PlantNestApp.Controllers
 		public async Task<IActionResult> SignIn(SingIn singIn)
 		{
 			var result = await _accountRepository.SingInAsync(singIn);
-			if (string.IsNullOrEmpty(result))
+			if (result != null)
 			{
 				return Ok(result);
 			}

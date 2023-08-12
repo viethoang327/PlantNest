@@ -44,6 +44,7 @@ namespace PlantNestApp.Repository
 							 rating = grouped.Key.Rating,
 							 discountPercentage = grouped.Key.DiscountPercentage,
 							 categoriesName = grouped.Select(r => r.Category.Name).ToList(),
+							 categoriesId = grouped.Select(r => r.Category.Id).ToList(),
 							 categoriesType = grouped.Key.Type,
 							
 						 };

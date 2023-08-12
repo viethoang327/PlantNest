@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using PlantNestApp.DataTransferObject.UserDTO;
 using PlantNestApp.Models;
 
 namespace PlantNestApp.Repository
@@ -6,7 +7,7 @@ namespace PlantNestApp.Repository
 	public interface IAccountRepository
 	{
 		public  Task<IdentityResult> SingUpAsync(SingUp model);
-		public Task<string> SingInAsync(SingIn model);
+		public Task<LoginToken> SingInAsync(SingIn model);
 
 		
 
