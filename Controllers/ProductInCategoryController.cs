@@ -7,7 +7,7 @@ using PlantNestApp.Repository;
 
 namespace PlantNestApp.Controllers
 {
-	[Route("api/[controller]")]
+	[Route("api/[controller]/[Action]")]
 	[ApiController]
 	public class ProductInCategoryController : BaseController<CategoryInProduct>
 	{

@@ -7,8 +7,8 @@ using PlantNestApp.Repository;
 
 namespace PlantNestApp.Controllers
 {
-	[Route("api/[controller]")]
-	[ApiController]
+    [Route("api/[controller]/[Action]")]
+    [ApiController]
 	public class SlideController : BaseController<Slide>
 	{
 		private readonly ISlide _SlideRepository;

@@ -7,12 +7,12 @@ using PlantNestApp.Repository;
 
 namespace PlantNestApp.Controllers
 {
-	[Route("api/[controller]")]
-	[ApiController]
-	public class NewCategoryController : BaseController<NewsCategory>
+    [Route("api/[controller]/[Action]")]
+    [ApiController]
+	public class NewsCategoryController : BaseController<NewsCategory>
 	{
 		private readonly INewCate _NewsCategory;
-		public NewCategoryController(INewCate NewsCategory,ApplicationDbContext context, IBaseRepository<NewsCategory> BaseRepository) : base(context, BaseRepository)
+		public NewsCategoryController(INewCate NewsCategory,ApplicationDbContext context, IBaseRepository<NewsCategory> BaseRepository) : base(context, BaseRepository)
 		{
 			_NewsCategory = NewsCategory;
 		}
