@@ -64,5 +64,12 @@ namespace PlantNestApp.Controllers
 				);
 			return Ok(result);
 		}
+		[HttpGet]
+		[Route("GetAllNewsMinify")]
+		public async Task<IActionResult> GetAllNewsMinify()
+		{
+			var result = await _NewRepository.GetNewsMinifyAsync();
+			return Ok(result);
+		}
 	}
 }

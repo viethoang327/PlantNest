@@ -11,5 +11,6 @@ namespace PlantNestApp.Repository
 		public NewCategoryRepository(ApplicationDbContext context) : base(context)
 		{
 		}
+
 	}
 }

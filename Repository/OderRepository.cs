@@ -16,13 +16,16 @@ namespace PlantNestApp.Repository
 		}
 		public async Task<List<OderMinifile>> GetOderMinifyAsync()
 		{
-			var query = _db.ordersDetail.Include(r => r.Order).ThenInclude(r => r.customerUser).Where(r => r.Order.isDeleted != true);
+			var query = _db.ordersDetail.Include(r => r.Order).Where(r => r.Order.isDeleted != true);
 			var result = from q in query
-						 let customerId = q.Order.customerUser.Id
+						 join u in _db.customerUsers on q.Order.UserID equals u.Id
+						 let customerId = q.Order.customerUser.Id 
+						 let customeruser = u.UserName
 						 group q by new
 						 {
 							 q.Order.Id,
 							 customerId,
+							 customeruser,
 							 q.Order.Code,
 							 q.Order.Address,
 							 q.Order.Phone,

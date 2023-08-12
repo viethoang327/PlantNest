@@ -40,6 +40,8 @@ namespace PlantNestApp
 			builder.Services.AddScoped<IConfig, ConfigRepository>();
 			builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 			builder.Services.AddScoped<ICatetype, CategoryTypeRepository>();
+			builder.Services.AddScoped<ICart, CartRepository>();
+
 
 
 			builder.Services.AddAuthentication(options =>
