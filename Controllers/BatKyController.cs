@@ -9,7 +9,7 @@ namespace PlantNestApp.Controllers
 	public class BatKyController : ControllerBase
 	{
 		[HttpGet]
-		[Route("Test1")]
+		[Route("Test12")]
 		public IActionResult Test()
 		{
 			return Ok("ok");

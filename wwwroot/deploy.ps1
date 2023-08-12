@@ -18,7 +18,7 @@ if ($?) {
 }
 
 # Triển khai ứng dụng
-dotnet publish -c Release -o bin
+dotnet publish
 if ($?) {
     Write-Host "Triển khai ứng dụng thành công." -ForegroundColor Green
 } else {
