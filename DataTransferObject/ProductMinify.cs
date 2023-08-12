@@ -17,7 +17,7 @@
 		public string? categoriesType { get; set; }
 		public decimal? priceAfterDiscount { get; set; }
 		public int? rating { get; set; }
-		public int? discountPercentage { get; set; }
+		public decimal? discountPercentage { get; set; }
 
 
 	}

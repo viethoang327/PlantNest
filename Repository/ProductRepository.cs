@@ -17,7 +17,7 @@ namespace PlantNestApp.Repository
 
 		public async Task<List<ProductMinify>> GetProductMinifyAsync()
 		{
-			var query = _db.categoryInProducts.Include(r => r.Product).Include(r => r.Category);
+			var query = _db.categoryInProducts.Include(r => r.Product).Include(r => r.Category).Where(r => r.Product.isDeleted != true);
 			var result = from q in query
 						 group q by new
 						 {
@@ -28,6 +28,8 @@ namespace PlantNestApp.Repository
 							 q.Product.Price,
 							 q.Product.Quantity,
 							 q.Category.Type,
+							 q.Product.Rating,
+							 q.Product.DiscountPercentage
 
 						 } into grouped
 						 select new ProductMinify
@@ -38,11 +40,12 @@ namespace PlantNestApp.Repository
 							 image = grouped.Key.Image,
 							 price = grouped.Key.Price,
 							 quantity = grouped.Key.Quantity,
-							 priceAfterDiscount = grouped.Key.Price * 90 / 100,
-							 discountPercentage = 10,
-							 rating = 5,
+							 priceAfterDiscount = grouped.Key.Price * grouped.Key.DiscountPercentage / 100,
+							 rating = grouped.Key.Rating,
+							 discountPercentage = grouped.Key.DiscountPercentage,
 							 categoriesName = grouped.Select(r => r.Category.Name).ToList(),
 							 categoriesType = grouped.Key.Type,
+							
 						 };
 			return await result.ToListAsync();
 		}
