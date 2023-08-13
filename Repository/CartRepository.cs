@@ -9,6 +9,7 @@ namespace PlantNestApp.Repository
 	public interface ICart : IBaseRepository<Cart>
 	{
 		Task<List<Cartminifly>> GetCartMinifyAsync(string userId);
+		Task<List<Cartminifly>> GetCartMinifyAsync(int Id);
 	}
 	public class CartRepository : BaseRepository<Cart>, ICart
 	{
@@ -36,6 +37,30 @@ namespace PlantNestApp.Repository
 
 			return returnValue;
 		}
+		public async Task<List<Cartminifly>> GetCartMinifyAsync(int Id)
+		{
+			var query = _db.carts.Where(r => r.isDeleted != true);
+			var result = from q in _db.carts.Where(r => r.isDeleted != true)
+						 join p in _db.products.AsQueryable() on q.ProductID equals p.Id
+						 join us in _db.customerUsers.AsQueryable() on q.UserID equals us.Id
+						 where q.Id.Equals(Id)
+						 select new Cartminifly
+						 {
+							 id = q.Id,
+							 name = p.Name,
+							 userID = us.Id,
+							 price = q.Price,
+							 quantity = q.Quantity,
+							 totalprice = q.Price * q.Quantity,
+							 image = p.Image,
+
+						 };
+			var returnValue = await result.ToListAsync();
+
+			return returnValue;
+		}
+
+
 
 
 
