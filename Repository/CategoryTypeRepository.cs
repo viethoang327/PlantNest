@@ -27,7 +27,7 @@ namespace PlantNestApp.Repository
 				var obj = new CategoriesByTypeDTO();
 				obj.CategoryType = t.Name;
 				obj.Categoryid = t.Id;
-				obj.Categories = categories.Where(r => r.Type.Equals(t.Name)).ToList();
+				obj.Categories = categories.Where(r => r.Type.Equals(t.Name) && r.isDeleted != true).ToList();
 				result.Add(obj);
 			}
 			return result;

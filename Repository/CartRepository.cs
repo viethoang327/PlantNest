@@ -28,8 +28,8 @@ namespace PlantNestApp.Repository
 							  name = p.Name,
 							  userID = us.Id,
 							  price = q.Price ,
-							 quantity = q.Quantity,
-							 totalprice = q.Price * q.Quantity,
+							  quantity = q.Quantity,
+							  totalprice = q.Price * q.Quantity,
 							  image = p.Image,
 
 						 };

@@ -94,8 +94,8 @@ namespace PlantNestApp.Repository
 			return new LoginToken()
 			{
 				accessToken = new JwtSecurityTokenHandler().WriteToken(token),
-				secretToken = Guid.NewGuid().ToString()
-
+				secretToken = Guid.NewGuid().ToString(),
+			
 			};
 		}
 
