@@ -63,7 +63,16 @@ namespace PlantNestApp
 				};
 			});
 
-			builder.Services.AddCors();
+			builder.Services.AddCors(options =>
+			{
+				options.AddPolicy("AllowAllOrigins",
+					builder =>
+					{
+						builder.AllowAnyOrigin()
+							   .AllowAnyMethod()
+							   .AllowAnyHeader();
+					});
+			});
 
 			// ...
 
@@ -88,12 +97,7 @@ namespace PlantNestApp
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-			app.UseCors(builder =>
-			{
-				builder.AllowAnyOrigin();
-				builder.AllowAnyHeader();
-				builder.AllowAnyMethod();
-			});
+			app.UseCors("AllowAllOrigins");
 			app.UseRouting();
 
             app.UseAuthentication();
